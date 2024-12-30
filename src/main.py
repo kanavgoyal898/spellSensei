@@ -41,5 +41,8 @@ spellchecker = SpellChecker('./words.txt')
 misspelled_word = input('enter a word: ')
 suggestion_count = input('enter the number of suggestions: ')
 suggestions = spellchecker.spell_check(misspelled_word, int(suggestion_count))
-for suggestion in suggestions:
-    print(f'Word: {suggestion[0]}:\t\t\tdistance:{suggestion[1]}')
+if not suggestions:
+    print('Word is spelled correctly')
+else:
+    for suggestion in suggestions:
+        print(f'Word: {suggestion[0]}:\t\t\tdistance: {suggestion[1]}')

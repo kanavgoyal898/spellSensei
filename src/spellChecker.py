@@ -28,9 +28,6 @@ class SpellChecker:
         self.words = load_dictionary(file_path)
     
     def spell_check(self, w, max_suggestions=10):
-        if w in self.words:
-            return None
-        
         suggestions = []
         for word in self.words:
             distance = wagner_fischer(w, word)

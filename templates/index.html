@@ -14,30 +14,62 @@
 <body class="bg-dark text-light">
     <div class="container py-4">
         <h1 class="fw-bold text-center text-success mb-4">spellSensei</h1>
-        <div class="d-flex justify-content-center">
+
+        <div class="d-flex justify-content-center mb-4">
             <form id="spellCheckForm" class="d-flex flex-column align-items-center w-120 w-md-auto">
                 <input autocomplete="off" type="text" name="word" class="form-control rounded-sm mb-4" placeholder="Enter a word" style="max-width: 324px;" id="wordInput">
             </form>
         </div>
+
+        <!-- Table below the input field -->
+        <div>
+            <table id="suggestionsTable" class="table table-dark table-striped" style="display: none;">
+                <thead>
+                    <tr>
+                        <th>Suggestion</th>
+                        <th>Score</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Suggestions will be populated here dynamically -->
+                </tbody>
+            </table>
+        </div>
     </div>
 
     <script>
-        // Listen to input field changes and submit the form asynchronously
         document.getElementById("wordInput").addEventListener("input", function() {
-            // Get the current input value
             let wordInput = document.getElementById("wordInput").value;
-            
-            // Send the form data via Fetch (AJAX) without page reload
             fetch("/", {
                 method: "POST",
-                body: JSON.stringify({ word: wordInput }), // Sending data
+                body: JSON.stringify({ word: wordInput }),
                 headers: {
                     "Content-Type": "application/json"
                 }
             })
             .then(response => response.json())
             .then(data => {
-                console.log("Server response:", data);
+                let suggestions = data.suggestions;
+                let suggestionsTable = document.getElementById("suggestionsTable");
+                let tbody = suggestionsTable.querySelector("tbody");
+                
+                tbody.innerHTML = '';
+                
+                if (suggestions.length > 0) {
+                    suggestionsTable.style.display = 'table';
+                    suggestions.forEach(function(suggestion) {
+                        let row = document.createElement("tr");
+                        let cell1 = document.createElement("td");
+                        cell1.textContent = suggestion[0];
+                        let cell2 = document.createElement("td");
+                        cell2.textContent = suggestion[1];
+                        row.appendChild(cell1);
+                        row.appendChild(cell2);
+                        tbody.appendChild(row);
+                    });
+                } else {
+                    suggestionsTable.style.display = 'none';
+                }
             })
             .catch(error => {
                 console.error("Error:", error);

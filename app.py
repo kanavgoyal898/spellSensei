@@ -11,8 +11,7 @@ def index():
     if request.method == 'POST':
         data = request.get_json()
         word = data['word']
-
-        suggestions = spellchecker.spell_check(word, 10)
+        suggestions = spellchecker.spell_check(word, 5)
         return jsonify(suggestions=suggestions)
     return render_template('index.html', suggestions=suggestions)
 

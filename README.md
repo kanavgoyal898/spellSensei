@@ -1,4 +1,4 @@
-# spellSensei
+# spellSensei: Wagner-Fischer Spell Checker
 spellSensei is a lightweight and efficient Python-based spell checker designed to help users identify and correct misspelled words with ease. At its core, spellSensei leverages the Wagner-Fischer algorithm, a dynamic programming approach for calculating the Levenshtein distance between words. This enables the tool to efficiently measure the similarity between strings and suggest accurate corrections for misspelled words. Its lightweight design ensures it can be seamlessly integrated into various applications without compromising performance. Whether you're working on a personal project, integrating it into a larger system, or simply looking to improve text accuracy, spellSensei provides reliable and high-speed suggestions to enhance written communication.
 
 <div style="text-align: center;">
